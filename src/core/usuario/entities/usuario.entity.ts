@@ -5,6 +5,8 @@ import {
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm';
+import { CreateUsuarioDto } from '../dto/create-usuario.dto';
+import { UpdateUsuarioDto } from '../dto/update-usuario.dto';
 import { UsuarioPermissao } from './usuario-permissao.entity';
 
 @Entity('usuario')
@@ -32,4 +34,8 @@ export class Usuario {
     eager: true,
   })
   permissao: UsuarioPermissao[];
+
+  constructor(createUsuarioDto: CreateUsuarioDto | UpdateUsuarioDto) {
+    Object.assign(this, createUsuarioDto);
+  }
 }
