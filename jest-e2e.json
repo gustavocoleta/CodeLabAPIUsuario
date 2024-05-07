@@ -6,9 +6,15 @@
   ],
   "rootDir": ".",
   "testEnvironment": "node",
-  "testRegex": ".e2e-spec.ts$",
+  "testMatch": [
+    "<rootDir>/test/**/*.e2e-spec.{ts,js}"
+  ],
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
   },
-  "coverageDirectory": "../coverage/e2e"
+  "coverageDirectory": "./coverage/e2e",
+  "coverageReporters": [
+    "text",
+    "html"
+  ]
 }

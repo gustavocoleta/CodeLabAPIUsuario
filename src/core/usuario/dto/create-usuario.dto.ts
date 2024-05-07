@@ -1,10 +1,7 @@
-import { IsEmail, IsEmpty, IsNotEmpty, MaxLength } from 'class-validator';
-import { EMensagem } from 'src/shared/enums/mensagem.enum';
+import { IsEmail, IsNotEmpty, MaxLength } from 'class-validator';
+import { EMensagem } from '../../../shared/enums/mensagem.enum';
 
 export class CreateUsuarioDto {
-  @IsEmpty({ message: `ID ${EMensagem.DeveSerVazio}` })
-  id: number;
-
   @IsNotEmpty({ message: `nome ${EMensagem.NaoPodeSerVazio}` })
   @MaxLength(60, { message: `nome ${EMensagem.MaisCaracteresQuePermitido}` })
   nome: string;

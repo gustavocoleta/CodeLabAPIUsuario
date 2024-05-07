@@ -1,0 +1,35 @@
+services:
+  api-usuario-test:
+    container_name: api-usuario-test
+    build:
+      context: .docker/node/
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=test
+    entrypoint: .docker/node/entrypoint.sh
+    ports:
+      - '3001:3001'
+      - '7001:7001'
+    volumes:
+      - .:/home/node/app
+    depends_on:
+      db-usuario-test:
+        condition: service_healthy
+
+  db-usuario-test:
+    container_name: db-usuario-test
+    build:
+      context: .docker/postgres/
+      dockerfile: Dockerfile
+    command: postgres -c log_statement=all -p 5001
+    environment:
+      POSTGRES_DB: api-usuario-test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5001:5001'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -p 5001']
+      interval: 5s
+      timeout: 5s
+      retries: 5
