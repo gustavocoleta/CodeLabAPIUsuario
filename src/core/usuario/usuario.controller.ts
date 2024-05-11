@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { HttpResponse } from '../../shared/classes/http-reponse';
+import { HttpResponse } from '../../shared/classes/http-response';
 import { IResponse } from '../../shared/interfaces/response.interface';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';

@@ -11,17 +11,16 @@ export class ResponseTransformInterceptor<T>
   ): Observable<IResponse<T>> | Promise<Observable<IResponse<T>>> {
     return next
       .handle()
-      .pipe(map((returned) => this.transformReponse(returned)));
+      .pipe(map((returned) => this.transformResponse(returned)));
   }
 
-  private transformReponse(returned: T): IResponse<T> {
+  private transformResponse(returned: T): IResponse<T> {
     const data = returned as IResponse<T>;
-
-    const reponseFormated = {
+    const responseFormated = {
       message: data?.message ?? null,
       data: data?.data ?? data,
     };
 
-    return reponseFormated as IResponse<T>;
+    return responseFormated as IResponse<T>;
   }
 }

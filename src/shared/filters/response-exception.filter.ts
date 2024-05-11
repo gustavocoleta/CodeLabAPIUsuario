@@ -20,14 +20,16 @@ export class ResponseExceptionsFilter<T> implements ExceptionFilter {
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
     return response.status(status).json({
-      message: this.transformResponse(exception as IResponseException),
+      message: this.transformResponse(
+        exception as unknown as IResponseException,
+      ),
       data: null,
     });
   }
 
-  private transformResponse(exception: IResponseException): string {
-    if (exception.reponse?.message) {
-      return exception.reponse.message;
+  transformResponse(exception: IResponseException): string {
+    if (exception.response?.message) {
+      return exception.response.message;
     }
 
     return exception.message;

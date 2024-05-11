@@ -1,4 +1,4 @@
 export interface IResponseException {
-  reponse: { message: string };
+  response: { message: string };
   message: string;
 }
