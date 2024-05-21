@@ -6,9 +6,14 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { HttpResponse } from '../../shared/classes/http-response';
+import { IFindAllFilter } from '../../shared/interfaces/find-all-filter.interface';
+import { IFindAllOrder } from '../../shared/interfaces/find-all-order.interface';
 import { IResponse } from '../../shared/interfaces/response.interface';
+import { ParseFindAllFilterPipe } from '../../shared/pipes/parse-find-all-filter.pipe';
+import { ParseFindAllOrderPipe } from '../../shared/pipes/parse-find-all-order.pipe';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { Usuario } from './entities/usuario.entity';
@@ -27,22 +32,32 @@ export class UsuarioController {
     return new HttpResponse<Usuario>(data).onCreated();
   }
 
-  @Get(':page/:size')
-  findAll(@Param('page') page: number, @Param('size') size: number) {
-    return this.usuarioService.findAll(page, size);
+  @Get(':page/:size/:order')
+  async findAll(
+    @Param('page') page: number,
+    @Param('size') size: number,
+    @Param('order', ParseFindAllOrderPipe) order: IFindAllOrder,
+    @Query('filter', ParseFindAllFilterPipe)
+    filter: IFindAllFilter | IFindAllFilter[],
+  ): Promise<IResponse<Usuario[]>> {
+    const data = await this.usuarioService.findAll(page, size, order, filter);
+
+    return new HttpResponse<Usuario[]>(data);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usuarioService.findOne(+id);
+  async findOne(@Param('id') id: number): Promise<IResponse<Usuario>> {
+    const data = await this.usuarioService.findOne(id);
+
+    return new HttpResponse<Usuario>(data);
   }
 
   @Patch(':id')
   async update(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() updateUsuarioDto: UpdateUsuarioDto,
   ): Promise<IResponse<Usuario>> {
-    const data = await this.usuarioService.update(+id, updateUsuarioDto);
+    const data = await this.usuarioService.update(id, updateUsuarioDto);
     return new HttpResponse<Usuario>(data).onUpdate();
   }
 

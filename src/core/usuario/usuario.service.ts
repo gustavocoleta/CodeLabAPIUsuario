@@ -2,6 +2,9 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { EMensagem } from '../../shared/enums/mensagem.enum';
+import { handleFilter } from '../../shared/helpers/sql.helper';
+import { IFindAllFilter } from '../../shared/interfaces/find-all-filter.interface';
+import { IFindAllOrder } from '../../shared/interfaces/find-all-order.interface';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { Usuario } from './entities/usuario.entity';
@@ -28,11 +31,20 @@ export class UsuarioService {
     return await this.repository.save(created);
   }
 
-  async findAll(page: number, size: number): Promise<Usuario[]> {
+  async findAll(
+    page: number,
+    size: number,
+    order: IFindAllOrder,
+    filter?: IFindAllFilter | IFindAllFilter[],
+  ): Promise<Usuario[]> {
     page--;
+
+    const where = handleFilter(filter);
 
     return await this.repository.find({
       loadEagerRelations: false,
+      order: { [order.column]: order.sort },
+      where,
       skip: size * page,
       take: size,
     });

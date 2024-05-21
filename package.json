@@ -82,6 +82,8 @@
       "ormconfig-seed.ts$",
       ".module.ts$",
       ".spec.ts$",
+      ".dto.ts$",
+      ".entity.ts$",
       ".seed.ts$",
       ".factory.ts$"
     ]
