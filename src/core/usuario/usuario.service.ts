@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import * as bcrypt from 'bcryptjs';
 import { Repository } from 'typeorm';
 import { EMensagem } from '../../shared/enums/mensagem.enum';
 import { handleFilter } from '../../shared/helpers/sql.helper';
@@ -26,7 +27,11 @@ export class UsuarioService {
       );
     }
 
-    const created = this.repository.create(createUsuarioDto);
+    const usuario = new Usuario(createUsuarioDto);
+
+    usuario.senha = bcrypt.hashSync(usuario.senha);
+
+    const created = this.repository.create(usuario);
 
     return await this.repository.save(created);
   }
@@ -76,6 +81,8 @@ export class UsuarioService {
         HttpStatus.NOT_ACCEPTABLE,
       );
     }
+
+    updateUsuarioDto.senha = bcrypt.hashSync(updateUsuarioDto.senha);
 
     return await this.repository.save(updateUsuarioDto);
   }

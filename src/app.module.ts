@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseModule } from './config/database/database.module';
+import { AuthModule } from './core/auth/auth.module';
 import { UsuarioModule } from './core/usuario/usuario.module';
 import { RequestLoggerMiddleware } from './shared/middlewares/request-logger.middleware';
 
@@ -13,6 +14,7 @@ import { RequestLoggerMiddleware } from './shared/middlewares/request-logger.mid
       isGlobal: true,
     }),
     DatabaseModule,
+    AuthModule,
     UsuarioModule,
   ],
   controllers: [AppController],
