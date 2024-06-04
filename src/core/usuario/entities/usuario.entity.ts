@@ -32,6 +32,9 @@ export class Usuario {
 
   @OneToMany(() => UsuarioPermissao, (permissao) => permissao.usuario, {
     eager: true,
+    onDelete: 'CASCADE',
+    cascade: ['insert', 'update'],
+    orphanedRowAction: 'delete',
   })
   permissao: UsuarioPermissao[];
 

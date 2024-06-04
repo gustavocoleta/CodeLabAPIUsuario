@@ -1,5 +1,8 @@
-import { IsEmail, IsNotEmpty, MaxLength } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsArray, IsEmail, IsNotEmpty, MaxLength } from 'class-validator';
 import { EMensagem } from '../../../shared/enums/mensagem.enum';
+import { CreateUsuarioPermissaoDto } from './create-usuario-permissao.dto';
+import { UpdateUsuarioPermissaoDto } from './update-usuario-permissao.dto';
 
 export class CreateUsuarioDto {
   @IsNotEmpty({ message: `nome ${EMensagem.NaoPodeSerVazio}` })
@@ -18,4 +21,8 @@ export class CreateUsuarioDto {
 
   @IsNotEmpty({ message: `admin ${EMensagem.NaoPodeSerVazio}` })
   admin: boolean;
+
+  @IsArray({ message: `permissao ${EMensagem.TipoInvalido}` })
+  @Type(() => CreateUsuarioPermissaoDto)
+  permissao: CreateUsuarioPermissaoDto[] | UpdateUsuarioPermissaoDto[];
 }
