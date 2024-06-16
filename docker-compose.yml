@@ -6,10 +6,12 @@ services:
       dockerfile: Dockerfile
     entrypoint: .docker/node/entrypoint.sh
     ports:
-      - "3001:3001"
-      - "7001:7001"
+      - '3001:3001'
+      - '7001:7001'
     volumes:
       - .:/home/node/app
+    networks:
+      - codelab-net
 
   db-usuario:
     container_name: db-usuario
@@ -24,4 +26,11 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5001:5001"
+      - '5001:5001'
+    networks:
+      - codelab-net
+
+networks:
+  codelab-net:
+    name: codelab-net
+    external: true
