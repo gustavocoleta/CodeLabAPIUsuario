@@ -68,6 +68,19 @@ export class UsuarioService {
     return await this.repository.findOne({ where: { id: id } });
   }
 
+  async findOneGrpc(id: number): Promise<Usuario> {
+    const usuario = await this.repository.findOne({
+      select: ['id', 'nome', 'email'],
+      where: { id: id },
+    });
+
+    if (usuario) {
+      return usuario;
+    }
+
+    return {} as unknown as Usuario;
+  }
+
   async update(
     id: number,
     updateUsuarioDto: UpdateUsuarioDto,

@@ -8,6 +8,7 @@ services:
     ports:
       - '3001:3001'
       - '7001:7001'
+      - '9001:9001'
     volumes:
       - .:/home/node/app
     networks:
