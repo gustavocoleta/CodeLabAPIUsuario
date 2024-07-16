@@ -11,7 +11,7 @@ import { ResponseTransformInterceptor } from './shared/interceptors/response-tra
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.setGlobalPrefix('api/v1');
+  app.setGlobalPrefix('api/v1/usuario');
   app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
   app.useGlobalInterceptors(new ResponseTransformInterceptor());
   app.useGlobalFilters(new ResponseExceptionsFilter());

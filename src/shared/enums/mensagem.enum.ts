@@ -18,4 +18,5 @@ export enum EMensagem {
   TokenInvalido = 'Token Inválido',
   TipoInvalido = 'Tipo Inválido',
   UsuarioSenhaInvalido = 'Usuario e/ou senha inválidos',
+  NaoFoiPossivelObterCredencial = 'Não foi possível obter a credencial',
 }

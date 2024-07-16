@@ -22,7 +22,7 @@ import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { Usuario } from './entities/usuario.entity';
 import { UsuarioService } from './usuario.service';
 
-@Controller('usuario')
+@Controller()
 export class UsuarioController {
   constructor(private readonly usuarioService: UsuarioService) {}
 
