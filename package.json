@@ -19,7 +19,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --detectOpenHandles --config ./jest-e2e.json",
     "test:e2e:cov": "jest --detectOpenHandles --config ./jest-e2e.json --coverage",
-    "seed": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-seeding/dist/cli.js seed -n src/ormconfig-seed.ts"
+    "seed": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-seeding/dist/cli.js seed -n src/ormconfig-seed.ts",
+    "migration:generate": "npx typeorm-ts-node-commonjs migration:generate -d src/ormconfig-migrations.ts",
+    "migration:run": "npx typeorm-ts-node-commonjs migration:run -d src/ormconfig-migrations.ts"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.10.10",
